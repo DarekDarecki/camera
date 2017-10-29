@@ -7,19 +7,19 @@ export default class Rotation {
 		this.angle = CONSTS.steps.rotation * direction / 90
 
 		this.rotationMatrices = {
-			OY: [
+			Y: [
 				[Math.cos(this.angle), 0, Math.sin(this.angle), 0],
 				[0, 1, 0, 0],
 				[-1 * Math.sin(this.angle), 0, Math.cos(this.angle), 0],
 				[0, 0, 0, 1]
 			],
-			OX: [
+			X: [
 				[1, 0, 0, 0],
 				[0, Math.cos(this.angle), -1 * Math.sin(this.angle), 0],
 				[0, Math.sin(this.angle), Math.cos(this.angle), 0],
 				[0, 0, 0, 1]
 			],
-			OZ: [
+			Z: [
 				[Math.cos(this.angle), -1 * Math.sin(this.angle), 0, 0],
 				[Math.sin(this.angle), Math.cos(this.angle), 0, 0],
 				[0, 0, 1, 0],
@@ -28,10 +28,10 @@ export default class Rotation {
 		}
 	}
 
-	rotate(coordinate) {
+	rotate(axis) {
 		this.vectors.forEach((vector) => {
-			const rotatedMatrixA = math.multiply(this.rotationMatrices[coordinate], vector.a.toMatrix())
-			const rotatedMatrixB = math.multiply(this.rotationMatrices[coordinate], vector.b.toMatrix())
+			const rotatedMatrixA = math.multiply(this.rotationMatrices[axis], vector.a.toMatrix())
+			const rotatedMatrixB = math.multiply(this.rotationMatrices[axis], vector.b.toMatrix())
 
 			vector.a.getValuesFromMatrix(rotatedMatrixA)
 			vector.b.getValuesFromMatrix(rotatedMatrixB)

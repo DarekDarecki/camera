@@ -9,7 +9,7 @@ import { CONSTS } from './consts'
 window.onload = function () {
 	const cube = new Cuboid(25, -5, 50, 25, 25)
 
-	const scene = new Scene('scene', cube, CONSTS.vpd)
+	const scene = new Scene('scene', [cube], CONSTS.vpd)
 
 	scene.render()
 
@@ -19,41 +19,41 @@ window.onload = function () {
 		switch (keyName) {
 
 		case 'k':
-			new Rotation(scene.getVectors(), -1).rotate('OX')
+			new Rotation(scene.getVectors(), -1).rotate('X')
 			break
 		case 'i':
-			new Rotation(scene.getVectors(), 1).rotate('OX')
+			new Rotation(scene.getVectors(), 1).rotate('X')
 			break
 		case 'j':
-			new Rotation(scene.getVectors(), 1).rotate('OY')
+			new Rotation(scene.getVectors(), 1).rotate('Y')
 			break
 		case 'l':
-			new Rotation(scene.getVectors(), -1).rotate('OY')
+			new Rotation(scene.getVectors(), -1).rotate('Y')
 			break
 		case 'o':
-			new Rotation(scene.getVectors(), 1).rotate('OZ')
+			new Rotation(scene.getVectors(), 1).rotate('Z')
 			break
 		case 'u':
-			new Rotation(scene.getVectors(), -1).rotate('OZ')
+			new Rotation(scene.getVectors(), -1).rotate('Z')
 			break
 
 		case 'a':
-			new Translation(scene.getVectors(), 1).translateX()
+			new Translation(scene.getVectors(), 1).translate('X')
 			break
 		case 'd':
-			new Translation(scene.getVectors(), -1).translateX()
+			new Translation(scene.getVectors(), -1).translate('X')
 			break
 		case 'q':
-			new Translation(scene.getVectors(), -1).translateY()
+			new Translation(scene.getVectors(), -1).translate('Y')
 			break
 		case 'e':
-			new Translation(scene.getVectors(), 1).translateY()
+			new Translation(scene.getVectors(), 1).translate('Y')
 			break
 		case 'w':
-			new Translation(scene.getVectors(), -1).translateZ()
+			new Translation(scene.getVectors(), -1).translate('Z')
 			break
 		case 's':
-			new Translation(scene.getVectors(), 1).translateZ()
+			new Translation(scene.getVectors(), 1).translate('Z')
 			break
 
 		case '-':

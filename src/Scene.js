@@ -12,7 +12,7 @@ export default class Scene {
 
 		this.vectors = []
 		this.polygons = []
-		this.setPolygons([objects])
+		this.setPolygons(objects)
 		this.setVectors()
 	}
 
@@ -54,7 +54,7 @@ export default class Scene {
 	}
 
 	zoomOut() {
-		this.vpd = CONSTS.steps.zoom
+		this.vpd = this.vpd - CONSTS.steps.zoom
 	}
 
 	render() {

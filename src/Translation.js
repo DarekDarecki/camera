@@ -7,24 +7,10 @@ export default class Translation {
 		this.vectors = vectors
 	}
 
-	translateY() {
+	translate(axis) {
 		this.vectors.forEach(vector => {
-			vector.a.y = vector.a.y + CONSTS.steps.translation * this.direction
-			vector.b.y = vector.b.y + CONSTS.steps.translation * this.direction
-		})
-	}
-
-	translateX() {
-		this.vectors.forEach(vector => {
-			vector.a.x = vector.a.x + CONSTS.steps.translation * this.direction
-			vector.b.x = vector.b.x + CONSTS.steps.translation * this.direction
-		})
-	}
-
-	translateZ() {
-		this.vectors.forEach(vector => {
-			vector.a.z = vector.a.z + CONSTS.steps.translation * this.direction
-			vector.b.z = vector.b.z + CONSTS.steps.translation * this.direction
+			vector.a[axis.toLowerCase()] = vector.a[axis.toLowerCase()] + CONSTS.steps.translation * this.direction
+			vector.b[axis.toLowerCase()] = vector.b[axis.toLowerCase()] + CONSTS.steps.translation * this.direction
 		})
 	}
 }
