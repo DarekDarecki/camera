@@ -1,9 +1,8 @@
 import Point3D from './Point3D'
 
 export default class Polygon {
-	constructor(vectors, color) {
+	constructor(vectors) {
 		this.vectors = vectors
-
 		this.setVertices()
 	}
 

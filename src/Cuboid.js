@@ -3,7 +3,7 @@ import Polygon from './Polygon'
 import Vector from './Vector'
 
 export default class Cuboid {
-	constructor(x, y, z, width, height) {
+	constructor({ x, y, z, width, height }) {
 		this.x = x
 		this.y = y
 		this.z = z

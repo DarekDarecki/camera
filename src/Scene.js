@@ -12,17 +12,34 @@ export default class Scene {
 
 		this.vectors = []
 		this.polygons = []
-		this.setPolygons(objects)
+		this.objects = []
+
+		this.loofForPolygonsInScene(objects)
+		// this.setPolygons(objects)
 		this.setVectors()
 	}
 
+	loofForPolygonsInScene(objects) {
+		const polygons = []
+		objects.forEach((object, index) => {
+			if (object.constructor.name === 'Polygon') {
+				polygons.push(object)
+				objects.splice(index, 1)
+			}
+		})
+		this.polygons = polygons
+		this.setPolygons(objects)
+	}
+
 	setPolygons(objects) {
-		this.polygons = objects.reduce((faces, object) => {
+		const polygons = objects.reduce((faces, object) => {
 			return faces.concat(object.faces)
 		}, [])
+		this.polygons = this.polygons.concat(polygons)
 	}
 
 	setVectors() {
+		console.log(this.polygons);
 		this.vectors = this.polygons.reduce((vectors, polygon) => {
 			return vectors.concat(polygon.getVectors())
 		}, [])

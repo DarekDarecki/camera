@@ -4,12 +4,60 @@ import Scene from './Scene'
 import Rotation from './Rotation'
 import Translation from './Translation'
 import Cuboid from './Cuboid'
+import Polygon from './Polygon'
+import Vector from './Vector'
+import Point3D from './Point3D'
+
 import { CONSTS } from './consts'
 
-window.onload = function () {
-	const cube = new Cuboid(25, -5, 50, 25, 25)
+function createPolygon({ x, y, z, width, height }) {
+	const vectors = []
 
-	const scene = new Scene('scene', [cube], CONSTS.vpd)
+	vectors.push(
+		new Vector(
+			new Point3D(x, y, z),
+			new Point3D(x, y, z + height)
+		)
+	)
+	vectors.push(
+		new Vector(
+			new Point3D(x, y, z + height),
+			new Point3D(x + width, y, z + height)
+		)
+	)
+	vectors.push(
+		new Vector(
+			new Point3D(x + width, y, z + height),
+			new Point3D(x + width, y, z)
+		)
+	)
+	vectors.push(
+		new Vector(
+			new Point3D(x + width, y, z),
+			new Point3D(x, y, z)
+		)
+	)
+
+	return new Polygon(vectors)
+}
+
+window.onload = function () {
+	const cube = new Cuboid({
+		x: 25,
+		y: -5,
+		z: 50,
+		width: 25,
+		height: 25
+	 })
+	const poly = createPolygon({
+		x: 25,
+		y: -5,
+		z: 50,
+		width: 25,
+		height: 50
+	 })
+
+	const scene = new Scene('scene', [poly, cube], CONSTS.vpd)
 
 	scene.render()
 
