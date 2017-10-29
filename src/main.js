@@ -1,16 +1,12 @@
 require('./styles/main.scss')
 
-import { Scene } from './Scene'
-// import { SceneObjects } from './SceneObjects'
-import Vertex2D from './Vertex2D'
-import Vertex3D from './Vertex3D'
-import Cube from './Cube'
+import Scene from './Scene'
+import Polyhedron from './Polyhedron'
 
-window.onload = function() {
-	var cubeCenter = new Vertex3D(-100, 11*200/10, 100)
-	var cube = new Cube(cubeCenter, 300)
-	var objects = [cube]
+window.onload = function () {
+	let cube = new Polyhedron(5, -5, 50, 25, 25);
 
-	var scene = new Scene('scene', objects)
+	var scene = new Scene('scene', cube)
+
 	scene.render()
 }

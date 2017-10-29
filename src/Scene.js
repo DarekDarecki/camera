@@ -1,43 +1,68 @@
-import Vertex2D from './Vertex2D'
+import Point2D from './Point2D'
+import Vector from './Vector'
 
-export class Scene {
+export default class Scene {
 	constructor(canvasId, objects) {
 		this.canvas = document.getElementById(canvasId)
 		this.ctx = this.canvas.getContext('2d')
-		this.sceneObjects = objects
+		this.vpd = 200
 		this.canvas.width = window.innerWidth
 		this.canvas.height = window.innerHeight
-		this.canvasCenterX = this.canvas.width / 2
-		this.canvasCenterY = this.canvas.height / 2
+
+		this.setPolygons([objects])
+		this.setVectors()
 	}
 
-	makeProjection(M) {
-		var d = 200
-		var r = d / M.y
+	setPolygons(objects) {
+		this.polygons = objects.reduce((faces, object) => {
+			return faces.concat(object.faces)
+		}, [])
+		console.log(this.polygons);
+	}
 
-		return new Vertex2D(r * M.x, r * M.z)
+	setVectors() {
+		this.vectors = this.polygons.reduce((vectors, polygon) => {
+			return vectors.concat(polygon.getVectors())
+		}, [])
+		console.log(this.vectors);
+	}
+
+	getVectors() {
+		return this.vectors
+	}
+
+	makeProjection() {
+		const vectors2D = []
+
+		this.vectors.forEach((vector) => {
+			vectors2D.push(new Vector(this.point3DTo2D(vector.a), this.point3DTo2D(vector.b)))
+		})
+
+		return vectors2D
+	}
+
+	point3DTo2D(point) {
+		const x = point.x * this.vpd / point.z
+		const y = point.y * this.vpd / point.z
+
+		return new Point2D(x, y)
 	}
 
 	render() {
-		this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)'
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+
+		this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)'
 		this.ctx.fillStyle = 'rgba(0, 150, 255, 0.3)'
 
-		this.sceneObjects.forEach(object => {
-			object.faces.forEach(face => {
+		const vectors = this.makeProjection()
 
-				var projectedVertex = this.makeProjection(face[0])
-				this.ctx.beginPath()
-				this.ctx.moveTo(projectedVertex.x + this.canvasCenterX, -projectedVertex.y + this.canvasCenterY)
-
-				face.forEach(vertex => {
-					projectedVertex = this.makeProjection(vertex)
-					this.ctx.lineTo(projectedVertex.x + this.canvasCenterX, -projectedVertex.y + this.canvasCenterY)
-				})
-
-				this.ctx.closePath()
-				this.ctx.stroke()
-				this.ctx.fill()
-			})
+		vectors.forEach((vector) => {
+			this.ctx.beginPath()
+			this.ctx.moveTo(this.canvas.width / 2 + vector.a.x, this.canvas.height / 2 - vector.a.y)
+			this.ctx.lineTo(this.canvas.width / 2 + vector.b.x, this.canvas.height / 2 - vector.b.y)
+			this.ctx.closePath()
+			this.ctx.stroke()
+			this.ctx.fill()
 		})
 	}
 }
