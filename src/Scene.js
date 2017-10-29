@@ -2,13 +2,15 @@ import Point2D from './Point2D'
 import Vector from './Vector'
 
 export default class Scene {
-	constructor(canvasId, objects) {
+	constructor(canvasId, objects, vpd) {
 		this.canvas = document.getElementById(canvasId)
 		this.ctx = this.canvas.getContext('2d')
-		this.vpd = 200
+		this.vpd = vpd
 		this.canvas.width = window.innerWidth
 		this.canvas.height = window.innerHeight
 
+		this.vectors = []
+		this.polygons = []
 		this.setPolygons([objects])
 		this.setVectors()
 	}
@@ -17,14 +19,12 @@ export default class Scene {
 		this.polygons = objects.reduce((faces, object) => {
 			return faces.concat(object.faces)
 		}, [])
-		console.log(this.polygons);
 	}
 
 	setVectors() {
 		this.vectors = this.polygons.reduce((vectors, polygon) => {
 			return vectors.concat(polygon.getVectors())
 		}, [])
-		console.log(this.vectors);
 	}
 
 	getVectors() {
