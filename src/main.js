@@ -2,6 +2,7 @@ require('./styles/main.scss')
 
 import Scene from './Scene'
 import Rotation from './Rotation'
+import Translation from './Translation'
 import Polyhedron from './Polyhedron'
 
 const VPD = 200
@@ -15,25 +16,46 @@ window.onload = function () {
 
 	document.addEventListener('keydown', event => {
 		const keyName = event.key
+
 		switch (keyName) {
-			case 's':
-				new Rotation(scene.getVectors(), -1).rotate('OX')
-				break
-			case 'w':
-				new Rotation(scene.getVectors(), 1).rotate('OX')
-				break
-			case 'd':
-				new Rotation(scene.getVectors(), 1).rotate('OY')
-				break
-			case 'a':
-				new Rotation(scene.getVectors(), -1).rotate('OY')
-				break
-			case 'q':
-				new Rotation(scene.getVectors(), 1).rotate('OZ')
-				break
-			case 'e':
-				new Rotation(scene.getVectors(), -1).rotate('OZ')
-				break
+
+		case 'k':
+			new Rotation(scene.getVectors(), -1).rotate('OX')
+			break
+		case 'i':
+			new Rotation(scene.getVectors(), 1).rotate('OX')
+			break
+		case 'j':
+			new Rotation(scene.getVectors(), 1).rotate('OY')
+			break
+		case 'l':
+			new Rotation(scene.getVectors(), -1).rotate('OY')
+			break
+		case 'o':
+			new Rotation(scene.getVectors(), 1).rotate('OZ')
+			break
+		case 'u':
+			new Rotation(scene.getVectors(), -1).rotate('OZ')
+			break
+
+		case 'a':
+			new Translation(scene.getVectors(), 1).translateX()
+			break
+		case 'd':
+			new Translation(scene.getVectors(), -1).translateX()
+			break
+		case 'q':
+			new Translation(scene.getVectors(), -1).translateY()
+			break
+		case 'e':
+			new Translation(scene.getVectors(), 1).translateY()
+			break
+		case 'w':
+			new Translation(scene.getVectors(), -1).translateZ()
+			break
+		case 's':
+			new Translation(scene.getVectors(), 1).translateZ()
+			break
 		}
 
 		scene.render()
