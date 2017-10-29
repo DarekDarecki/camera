@@ -3,12 +3,12 @@ require('./styles/main.scss')
 import Scene from './Scene'
 import Rotation from './Rotation'
 import Translation from './Translation'
-import Polyhedron from './Polyhedron'
+import Cuboid from './Cuboid'
 
-const VPD = 200
+let VPD = 300
 
 window.onload = function () {
-	const cube = new Polyhedron(25, -5, 50, 25, 25)
+	const cube = new Cuboid(25, -5, 50, 25, 25)
 
 	const scene = new Scene('scene', cube, VPD)
 
@@ -55,6 +55,13 @@ window.onload = function () {
 			break
 		case 's':
 			new Translation(scene.getVectors(), 1).translateZ()
+			break
+			
+		case '-':
+			scene.zoomOut()
+			break
+		case '=':
+			scene.zoomIn()
 			break
 		}
 

@@ -48,6 +48,14 @@ export default class Scene {
 		return new Point2D(x, y)
 	}
 
+	zoomIn() {
+		this.vpd += 10
+	}
+
+	zoomOut() {
+		this.vpd -= 10
+	}
+
 	render() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
