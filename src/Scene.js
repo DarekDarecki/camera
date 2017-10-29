@@ -1,5 +1,6 @@
 import Point2D from './Point2D'
 import Vector from './Vector'
+import { CONSTS } from './consts'
 
 export default class Scene {
 	constructor(canvasId, objects, vpd) {
@@ -49,11 +50,11 @@ export default class Scene {
 	}
 
 	zoomIn() {
-		this.vpd += 10
+		this.vpd = this.vpd + CONSTS.steps.zoom
 	}
 
 	zoomOut() {
-		this.vpd -= 10
+		this.vpd = CONSTS.steps.zoom
 	}
 
 	render() {

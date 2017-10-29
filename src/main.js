@@ -4,13 +4,12 @@ import Scene from './Scene'
 import Rotation from './Rotation'
 import Translation from './Translation'
 import Cuboid from './Cuboid'
-
-let VPD = 300
+import { CONSTS } from './consts'
 
 window.onload = function () {
 	const cube = new Cuboid(25, -5, 50, 25, 25)
 
-	const scene = new Scene('scene', cube, VPD)
+	const scene = new Scene('scene', cube, CONSTS.vpd)
 
 	scene.render()
 
@@ -56,7 +55,7 @@ window.onload = function () {
 		case 's':
 			new Translation(scene.getVectors(), 1).translateZ()
 			break
-			
+
 		case '-':
 			scene.zoomOut()
 			break

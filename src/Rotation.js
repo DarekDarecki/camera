@@ -1,9 +1,10 @@
 import math from 'mathjs'
+import { CONSTS } from './consts'
 
 export default class Rotation {
 	constructor(vectors, direction) {
 		this.vectors = vectors
-		this.angle = direction * Math.PI / 90
+		this.angle = CONSTS.steps.rotation * direction / 90
 
 		this.rotationMatrices = {
 			OY: [
