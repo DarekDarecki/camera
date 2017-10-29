@@ -1,0 +1,16 @@
+.canvas {
+  width: 1000px;
+  height: 600px;
+  border: 1px solid #000;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+}
+
+/*# sourceMappingURL=app.css.map*/
