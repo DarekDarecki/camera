@@ -1,7 +1,7 @@
 export const CONSTS = {
 	vpd: 200,
 	steps: {
-		zoom: 10,
+		zoom: 6,
 		rotation: 4,
 		translation: 2
 	}
