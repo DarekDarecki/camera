@@ -12,12 +12,12 @@ module.exports = {
 
   output: {
     path: __dirname,
-    filename: 'js/app.js'
+    filename: 'app.js'
   },
 
   plugins: [
     // Specify the resulting CSS filename
-    new ExtractTextPlugin('css/app.css')
+    new ExtractTextPlugin('app.css')
   ],
 
   module: {
