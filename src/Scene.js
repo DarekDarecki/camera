@@ -1,6 +1,8 @@
 import Point2D from './Point2D'
 import Vector from './Vector'
+import Polygon from './Polygon'
 import { CONSTS } from './consts'
+import PainterAlgorithm from './PainterAlgorithm'
 
 export default class Scene {
 	constructor(canvasId, objects, vpd) {
@@ -14,35 +16,27 @@ export default class Scene {
 		this.polygons = []
 		this.objects = []
 
-		this.loofForPolygonsInScene(objects)
-		// this.setPolygons(objects)
+		this.lookForPolygonsInScene(objects)
 		this.setVectors()
 	}
 
-	loofForPolygonsInScene(objects) {
-		const polygons = []
-		objects.forEach((object, index) => {
+	lookForPolygonsInScene(objects) {
+		this.polygons = objects.filter((object, index) => {
 			if (object.constructor.name === 'Polygon') {
-				polygons.push(object)
 				objects.splice(index, 1)
+				return object
 			}
 		})
-		this.polygons = polygons
 		this.setPolygons(objects)
 	}
 
 	setPolygons(objects) {
-		const polygons = objects.reduce((faces, object) => {
-			return faces.concat(object.faces)
-		}, [])
-		this.polygons = this.polygons.concat(polygons)
+		const polygons = objects.reduce((faces, object) => [...faces, ...object.faces], [])
+		this.polygons = [...this.polygons, ...polygons]
 	}
 
 	setVectors() {
-		console.log(this.polygons);
-		this.vectors = this.polygons.reduce((vectors, polygon) => {
-			return vectors.concat(polygon.getVectors())
-		}, [])
+		this.vectors = this.polygons.reduce((vectors, polygon) => [...vectors, ...polygon.getVectors()], [])
 	}
 
 	getVectors() {
@@ -50,13 +44,19 @@ export default class Scene {
 	}
 
 	makeProjection() {
-		const vectors2D = []
+		let polygons = []
 
-		this.vectors.forEach((vector) => {
-			vectors2D.push(new Vector(this.point3DTo2D(vector.a), this.point3DTo2D(vector.b)))
+		this.polygons.forEach((polygon) => {
+			let vectors2D = []
+
+			polygon.vectors.forEach((v3d) => {
+				vectors2D.push(new Vector(this.point3DTo2D(v3d.a), this.point3DTo2D(v3d.b)))
+			})
+
+			polygons.push(new Polygon(vectors2D, polygon.color))
 		})
 
-		return vectors2D
+		return polygons
 	}
 
 	point3DTo2D(point) {
@@ -74,20 +74,31 @@ export default class Scene {
 		this.vpd = this.vpd - CONSTS.steps.zoom
 	}
 
+	runPainterAlgorithm() {
+		this.polygons.sort(PainterAlgorithm.compare)
+	}
+
 	render() {
+		this.runPainterAlgorithm()
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
 		this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)'
-		this.ctx.fillStyle = 'rgba(0, 150, 255, 0.3)'
 
-		const vectors = this.makeProjection()
+		const polygons = this.makeProjection()
 
-		vectors.forEach((vector) => {
+		polygons.forEach((polygon) => {
+			let [first, ...tail] = polygon.points
+			if (!first) return
+
+			this.ctx.fillStyle = polygon.color
 			this.ctx.beginPath()
-			this.ctx.moveTo(this.canvas.width / 2 + vector.a.x, this.canvas.height / 2 - vector.a.y)
-			this.ctx.lineTo(this.canvas.width / 2 + vector.b.x, this.canvas.height / 2 - vector.b.y)
+
+			this.ctx.moveTo(this.canvas.width / 2 + first.x, this.canvas.height / 2 - first.y)
+			tail.forEach((tail) => {
+				this.ctx.lineTo(this.canvas.width / 2 + tail.x, this.canvas.height / 2 - tail.y)
+			})
+
 			this.ctx.closePath()
-			this.ctx.stroke()
 			this.ctx.fill()
 		})
 	}

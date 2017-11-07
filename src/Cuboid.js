@@ -3,13 +3,14 @@ import Polygon from './Polygon'
 import Vector from './Vector'
 
 export default class Cuboid {
-	constructor({ x, y, z, width, height }) {
+	constructor({ x, y, z, width, height, color }) {
 		this.x = x
 		this.y = y
 		this.z = z
 		this.width = width
 		this.height = height
 		this.faces = []
+		this.color = color
 
 		this.createFaces()
 	}
@@ -51,7 +52,7 @@ export default class Cuboid {
 			)
 		)
 
-		this.faces.push(new Polygon(vectors))
+		this.faces.push(new Polygon(vectors, this.color))
 	}
 
 	createBackFace() {
@@ -82,7 +83,7 @@ export default class Cuboid {
 			)
 		)
 
-		this.faces.push(new Polygon(vectors))
+		this.faces.push(new Polygon(vectors, this.color))
 	}
 
 	createBottomFace() {
@@ -113,7 +114,7 @@ export default class Cuboid {
 			)
 		)
 
-		this.faces.push(new Polygon(vectors))
+		this.faces.push(new Polygon(vectors, this.color))
 	}
 
 	createTopFace() {
@@ -144,7 +145,7 @@ export default class Cuboid {
 			)
 		)
 
-		this.faces.push(new Polygon(vectors))
+		this.faces.push(new Polygon(vectors, this.color))
 	}
 
 	createLeftFace() {
@@ -175,7 +176,7 @@ export default class Cuboid {
 			)
 		)
 
-		this.faces.push(new Polygon(vectors))
+		this.faces.push(new Polygon(vectors, this.color))
 	}
 
 	createRightFace() {
@@ -206,6 +207,6 @@ export default class Cuboid {
 			)
 		)
 
-		this.faces.push(new Polygon(vectors))
+		this.faces.push(new Polygon(vectors, this.color))
 	}
 }

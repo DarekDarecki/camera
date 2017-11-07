@@ -10,7 +10,7 @@ import Point3D from './Point3D'
 
 import { CONSTS } from './consts'
 
-function createPolygon({ x, y, z, width, height }) {
+function createPolygon({ x, y, z, width, height, color }) {
 	const vectors = []
 
 	vectors.push(
@@ -38,7 +38,7 @@ function createPolygon({ x, y, z, width, height }) {
 		)
 	)
 
-	return new Polygon(vectors)
+	return new Polygon(vectors, color)
 }
 
 window.onload = function () {
@@ -47,35 +47,40 @@ window.onload = function () {
 		y: -20,
 		z: 20,
 		width: 25,
-		height: 25
+		height: 25,
+		color: '#999'
 	 })
 	 const bigCube1 = new Cuboid({
  		x: -70,
  		y: -20,
  		z: 60,
  		width: 35,
- 		height: 50
+ 		height: 50,
+		color: '#ddd'
  	 })
 	 const street = createPolygon({
  		x: -25,
  		y: -20,
  		z: 20,
  		width: 50,
- 		height: 100
+ 		height: 100,
+		color: '#111'
  	 })
 	 const smallCube2 = new Cuboid({
  		x: 30,
  		y: -20,
  		z: 25,
  		width: 25,
- 		height: 25
+ 		height: 25,
+		color: '#888'
  	 })
 	 const bigCube2 = new Cuboid({
  		x: 30,
  		y: -20,
  		z: 50,
  		width: 25,
- 		height: 55
+ 		height: 55,
+		color: '#bbb'
  	 })
 
 	const scene = new Scene('scene', [street, smallCube1, smallCube2, bigCube1, bigCube2], CONSTS.vpd)

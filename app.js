@@ -233,14 +233,14 @@
 			this.polygons = [];
 			this.objects = [];
 	
-			this.loofForPolygonsInScene(objects);
+			this.lookForPolygonsInScene(objects);
 			// this.setPolygons(objects)
 			this.setVectors();
 		}
 	
 		_createClass(Scene, [{
-			key: 'loofForPolygonsInScene',
-			value: function loofForPolygonsInScene(objects) {
+			key: 'lookForPolygonsInScene',
+			value: function lookForPolygonsInScene(objects) {
 				var polygons = [];
 				objects.forEach(function (object, index) {
 					if (object.constructor.name === 'Polygon') {
@@ -262,7 +262,6 @@
 		}, {
 			key: 'setVectors',
 			value: function setVectors() {
-				console.log(this.polygons);
 				this.vectors = this.polygons.reduce(function (vectors, polygon) {
 					return vectors.concat(polygon.getVectors());
 				}, []);

@@ -9,4 +9,47 @@ body {
       align-items: center;
 }
 
+.infoBox {
+  position: fixed;
+  background: #01579b;
+  padding: 20px 30px 10px;
+  color: #fff;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.infoBox b {
+  font-size: 18px;
+}
+
+.infoBox__list {
+  list-style-type: none;
+  padding-left: 5px;
+}
+
+.infoBox__list-item {
+  padding: 2px 0;
+}
+
+.infoBox__heading {
+  text-align: center;
+  font-size: 22px;
+  margin: 0;
+}
+
+.infoBox--topLeft {
+  top: 0;
+  left: 0;
+}
+
+.infoBox--topRight {
+  top: 0;
+  right: 0;
+}
+
+.infoBox--bottom {
+  bottom: 0;
+  left: 0;
+}
+
 /*# sourceMappingURL=app.css.map*/
